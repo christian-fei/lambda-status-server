@@ -108,7 +108,8 @@ function drawResponseTimeChartWith(data) {
 function labelsFrom(data) {
   data = data || []
   return data.map((a, index) => {
-    if([0, parseInt(data.length/4), parseInt(data.length/2), parseInt(data.length*3/4), data.length-1].indexOf(index) >= 0) {
+    console.log('-- ', parseInt(data.length*0.33,0))
+    if(index % parseInt((1+data.length)*0.33, 0)==0 || index == data.length-1){
       return formatTime(new Date(a.id))
     }
     return ""
