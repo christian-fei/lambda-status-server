@@ -137,9 +137,13 @@ function drawResponseTimeChartWith(data) {
         labelColor: /theme=dark/.test(window.location.search) ? "rgba(255,255,255,0.66)" : "rgba(33,33,33,0.66)",
         fill: false,
         steppedLine: /steppedLine=true/.test(window.location.search),
-        lineTension: 0.05,
+        lineTension: 0,
         borderColor: /theme=dark/.test(window.location.search) ? "rgba(255,255,255,0.66)" : "rgba(33,33,33,0.66)",
         borderWidth: 1,
+        pointBorderWidth: 0,
+        pointRadius: 1,
+        pointHoverRadius: 3,
+        pointHitRadius: 3,
         data: valuesFrom(data),
       }]
     }
