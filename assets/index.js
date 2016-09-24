@@ -23,6 +23,7 @@ function requestDataFrom(from) {
     setCounter('to', currentData)
     setCounter('exception-rate', currentData)
     setCounter('avg-loading-time', currentData)
+    setCounter('count-by-status-code', currentData)
     $loadingPageContainer.removeClass('loading-page-active')
   })
 }
@@ -65,6 +66,16 @@ function setCounter(type, data) {
     avg = avg.toFixed(1)
     counter.empty()
     counter.append($('<div><p class="label">avg loading time</p><p class="value">'+ avg+'ms</p></div>'))
+  }
+  if('count-by-status-code'==type) {
+    const countByStatusCode = _.countBy(data,'statusCode')
+    let output = ""
+    for(let key in countByStatusCode) {
+      const value = countByStatusCode[key]
+      output+='<strong>'+key+'</strong>:  '+value+'</br>'
+    }
+    counter.empty()
+    counter.append($('<div><p class="label">Count by `statusCode`</p><p class="value">'+output+'</p></div>'))
   }
 }
 

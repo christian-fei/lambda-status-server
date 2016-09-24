@@ -12,6 +12,7 @@
   "dependencies": {
     "aws-sdk": "^2.6.4",
     "hapi": "^15.0.3",
-    "inert": "^4.0.2"
+    "inert": "^4.0.2",
+    "lodash.countby": "^4.6.0"
   }
 }
