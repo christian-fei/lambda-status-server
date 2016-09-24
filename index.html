@@ -24,13 +24,17 @@
       <h1>Loading...</h1>
     </div>
     <div>
-      <span class="link" href="/past/hour" onclick="window.location='/past/hour'+window.location.search">Past hour</span>
-      <span class="link" href="/past/day" onclick="window.location='/past/day'+window.location.search">Past day</span>
-      <span class="link" href="/past/week" onclick="window.location='/past/week'+window.location.search">Past week</span>
-      <canvas id="loading-time-chart" width="300" height="50"></canvas>
+      <div class="tac">
+        <span class="link" href="/past/hour" onclick="window.location='/past/hour'+window.location.search">Past hour</span>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+        <span class="link" href="/past/day" onclick="window.location='/past/day'+window.location.search">Past day</span>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+        <span class="link" href="/past/week" onclick="window.location='/past/week'+window.location.search">Past week</span>
+      </div>
       <div class="counter-container">
         <div class="counter small" id="from"></div>
         <div class="counter small" id="to"></div>
+      </div>
+      <canvas id="loading-time-chart" width="300" height="50"></canvas>
+      <div class="counter-container">
         <div class="counter" id="datasets"></div>
         <div class="counter" id="avg-loading-time"></div>
         <div class="counter" id="max-loading-time"></div>
