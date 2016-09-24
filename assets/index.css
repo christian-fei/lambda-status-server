@@ -54,7 +54,10 @@ a, .link {
 .info {
   margin: 0 !important;
   width: 100%;
-  background-color: rgba(0,0,0,0.02);
+  padding: 0.6em 0;
+}
+.info.half {
+  width: 50%!important;
 }
 
 .info .ok .value {
