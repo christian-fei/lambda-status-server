@@ -33,7 +33,7 @@ a, .link {
   width: calc(50% - 2em);
   float: left;
   margin: 0;
-  border-bottom: 1px solid #666;
+  /*border-bottom: 1px solid #666;*/
   color: #333;
   text-align: left;
   font-size: 0.75em;
@@ -41,7 +41,7 @@ a, .link {
   margin-left: -1px;
 }
 .counter:nth-child(2n+1) {
-  border-right: 1px solid #666;
+  /*border-right: 1px solid #666;*/
 }
 @media all and (max-width: 1200px) {
   .counter {
