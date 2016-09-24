@@ -23,6 +23,8 @@ function requestDataFrom(from) {
     setCounter('to', currentData)
     setCounter('exception-rate', currentData)
     setCounter('avg-loading-time', currentData)
+    setCounter('max-loading-time', currentData)
+    setCounter('min-loading-time', currentData)
     setCounter('count-by-status-code', currentData)
     $loadingPageContainer.removeClass('loading-page-active')
   })
@@ -66,6 +68,18 @@ function setCounter(type, data) {
     avg = avg.toFixed(1)
     counter.empty()
     counter.append($('<div><p class="label">avg loading time</p><p class="value">'+ avg+'ms</p></div>'))
+  }
+  if('max-loading-time'==type) {
+    let max = data.reduce((acc, val)=>acc>val.loadingTime ? acc : val.loadingTime, 0)
+    max = max.toFixed(1)
+    counter.empty()
+    counter.append($('<div><p class="label">max loading time</p><p class="value">'+ max+'ms</p></div>'))
+  }
+  if('min-loading-time'==type) {
+    let min = data.reduce((acc, val)=>acc<val.loadingTime ? acc : val.loadingTime, 0)
+    min = min.toFixed(1)
+    counter.empty()
+    counter.append($('<div><p class="label">min loading time</p><p class="value">'+ min+'ms</p></div>'))
   }
   if('count-by-status-code'==type) {
     const countByStatusCode = _.countBy(data,'statusCode')
