@@ -1,19 +1,15 @@
 const $loadingPageContainer = $('.loading-page-container')
-const $loadPastHourButton = $('.load-time-period #1hago')
-const $loadPastDatButton = $('.load-time-period #1dago')
-const $loadPastWeekButton = $('.load-time-period #1wago')
 let currentChart = null
 let currentData = null
 
-$('.load-time-period').each(function() {
-  const $this = $(this)
-  $this.on('click', (event) => {
-    $loadingPageContainer.addClass('loading-page-active')
-    requestDataFrom($this.attr('id'))
-  })
-})
+let dataFrom = '1hago'
+const path = window.location.pathname
+if('/past/hour'==path){dataFrom = '1hago'}
+if('/past/day'==path){dataFrom = '1dago'}
+if('/past/week'==path){dataFrom = '1wago'}
 
-requestDataFrom('1hago')
+requestDataFrom(dataFrom)
+
 function requestDataFrom(from) {
   $.get('/statuses?from='+from, function(err, status, response){
     currentData = response.responseJSON.sort((a,b)=>a.id>b.id)

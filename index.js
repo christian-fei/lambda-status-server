@@ -15,13 +15,6 @@ server.register(require('inert'), (err) => {
 })
 server.route({
   method: 'GET',
-  path:'/',
-  handler: function (request, reply) {
-    return reply.file('./index.html');
-  }
-})
-server.route({
-  method: 'GET',
   path:'/assets/index.js',
   handler: function (request, reply) {
     return reply.file('./assets/index.js');
@@ -47,6 +40,20 @@ server.route({
       console.log('-- catch', err.message)
       reply({}).code(500)
     })
+  }
+})
+server.route({
+  method: 'GET',
+  path:'/past/{type}',
+  handler: function (request, reply) {
+    return reply.file('./index.html');
+  }
+})
+server.route({
+  method: 'GET',
+  path:'/',
+  handler: function (request, reply) {
+    return reply.file('./index.html');
   }
 })
 server.start((err) => {
