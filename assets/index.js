@@ -139,7 +139,7 @@ function drawResponseTimeChartWith(data) {
         steppedLine: /steppedLine=true/.test(window.location.search),
         lineTension: 0,
         borderColor: /theme=dark/.test(window.location.search) ? "rgba(255,255,255,0.66)" : "rgba(33,33,33,0.66)",
-        borderWidth: 1,
+        borderWidth: 3,
         pointBorderWidth: 0,
         pointRadius: 1,
         pointHoverRadius: 3,
