@@ -1,6 +1,8 @@
 body {
   font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue",  'Arial Narrow', Arial, sans-serif;
   font-size: 16px;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 a, .link {
   cursor: pointer;
@@ -31,39 +33,23 @@ a, .link {
   margin: 0 auto;
   max-width: 600px;
 }
-.counter, .info {
-  display: block;
-  width: calc(50% - 2em);
-  float: left;
-  margin: 0;
-  color: #333;
-  text-align: left;
+.item .label {
+  text-transform: uppercase;
+  font-size: 0.9em;
 }
-@media all and (max-width: 1200px) {
-  .counter, .info {
-    width: 100%;
-  }
-}
-.counter .value {
-  text-align: center;
+.item .value {
   font-weight: bold;
   margin: 0.05em auto;
   font-size: 3em;
 }
-
-.info {
-  margin: 0 !important;
-  width: 100%;
-  padding: 0.6em 0;
-}
-.info.half {
-  width: 50%!important;
+.item .value.small {
+  font-size: 1em;
 }
 
-.info .ok .value {
+.item .ok .value {
   color: green;
 }
-.info .danger .value {
+.item .danger .value {
   color: red;
 }
 
@@ -72,5 +58,5 @@ a, .link {
 }
 
 .light {
-  color: #848484;
+  /*color: #848484;*/
 }

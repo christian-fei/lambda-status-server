@@ -18,7 +18,7 @@ function requestDataFrom(from) {
   $.get('/statuses?from='+from, function(err, status, response){
     currentData = response.responseJSON.sort((a,b)=>a.id-b.id)
     drawResponseTimeChartWith(currentData)
-    setInfo('last-response', currentData)
+    setCounter('last-response', currentData)
     setCounter('datasets', currentData)
     setCounter('from', currentData)
     setCounter('to', currentData)
@@ -31,18 +31,14 @@ function requestDataFrom(from) {
   })
 }
 
-function setInfo(type, data) {
-  const info = $('#'+type)
-  if('last-response'==type) {
-    info.empty()
-    const lastResponse = data[data.length-1]
-    const lastStatusClass = lastResponse.statusCode < 400 ? 'ok' : 'danger'
-    info.append($('<p class="cell '+ lastStatusClass +'">Last status: <span class="value">'+lastResponse.statusCode+' ('+lastResponse.loadingTime+'ms)</span></p>'))
-  }
-}
-
 function setCounter(type, data) {
   const counter = $('#'+type)
+  if('last-response'==type) {
+    counter.empty()
+    const lastResponse = data[data.length-1]
+    const lastStatusClass = lastResponse.statusCode < 400 ? 'ok' : 'danger'
+    counter.append($('<p class="cell '+ lastStatusClass +'">Last status: <span class="value small">'+lastResponse.statusCode+' ('+lastResponse.loadingTime+'ms)</span></p>'))
+  }
   if('datasets'==type) {
     counter.empty()
     counter.append(counterFrom('# datasets', data.length))
