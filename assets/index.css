@@ -25,24 +25,35 @@ a, .link {
 }
 .counter {
   display: block;
-  width: 48%;
+  width: calc(50% - 2em);
   float: left;
   margin: 0;
   border-bottom: 1px solid #666;
-  border-right: 1px solid #666;
   color: #333;
   text-align: left;
   font-size: 0.75em;
   padding: 1em;
+  margin-left: -1px;
+}
+.counter:nth-child(2n+1) {
+  border-right: 1px solid #666;
 }
 @media all and (max-width: 1200px) {
   .counter {
     width: 100%;
   }
 }
+.counter.small {
+  font-size: 0.4em;
+}
+.counter.small .label, .counter.small .value {
+  float: left;
+}
 .counter .label {
+  padding-right: 1em;
 }
 .counter .value {
   font-weight: bold;
   font-size: 3em;
+  margin: 0.5em auto 0.05em;
 }

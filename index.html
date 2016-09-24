@@ -29,12 +29,12 @@
       <span class="link" href="/past/week" onclick="window.location='/past/week'+window.location.search">Past week</span>
       <canvas id="loading-time-chart" width="300" height="60"></canvas>
       <div class="counter-container">
+        <div class="counter small" id="from"></div>
+        <div class="counter small" id="to"></div>
         <div class="counter" id="datasets"></div>
         <div class="counter" id="avg-loading-time"></div>
         <div class="counter" id="exception-rate"></div>
         <div class="counter" id="count-by-status-code"></div>
-        <div class="counter" id="from"></div>
-        <div class="counter" id="to"></div>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.1/lodash.min.js"></script>
