@@ -81,9 +81,11 @@ function drawResponseTimeChartWith(data) {
       labels: labelsFrom(data),
       datasets: [{
         label: "Response time (ms)",
+        labelColor: /theme=dark/.test(window.location.search) ? "rgba(255,255,255,0.66)" : "rgba(33,33,33,0.66)",
         fill: false,
+        steppedLine: /steppedLine=true/.test(window.location.search),
         lineTension: 0.05,
-        borderColor: "rgba(33,33,33,0.66)",
+        borderColor: /theme=dark/.test(window.location.search) ? "rgba(255,255,255,0.66)" : "rgba(33,33,33,0.66)",
         borderWidth: 1,
         data: valuesFrom(data),
       }]
