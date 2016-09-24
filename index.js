@@ -5,7 +5,7 @@ const StatusRepository = require('./lib/StatusRepository')
 
 const server = new Hapi.Server()
 server.connection({
-  host: 'localhost',
+  host: '0.0.0.0',
   port: process.env.PORT || 3000
 })
 server.register(require('inert'), (err) => {
