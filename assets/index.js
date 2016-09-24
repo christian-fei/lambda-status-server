@@ -122,6 +122,7 @@ function counterFrom(label, value) {
 }
 
 function drawResponseTimeChartWith(data) {
+  Chart.defaults.global.legend.display = false
   $("#loading-time-chart").empty()
   if(currentChart) {
     debugger
@@ -167,8 +168,8 @@ function valuesFrom(data) {
 }
 
 function formatTime(date){
-  if(!date) {
     return ''
+  if(!date) {
   }
   return date.toTimeString().substring(0,8)
 }
