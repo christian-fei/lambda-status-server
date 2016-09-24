@@ -16,7 +16,7 @@ setTimeout(() => {
 
 function requestDataFrom(from) {
   $.get('/statuses?from='+from, function(err, status, response){
-    currentData = response.responseJSON.sort((a,b)=>a.id>b.id)
+    currentData = response.responseJSON.sort((a,b)=>a.id-b.id)
     drawResponseTimeChartWith(currentData)
     setCounter('datasets', currentData)
     setCounter('from', currentData)
@@ -121,9 +121,10 @@ function drawResponseTimeChartWith(data) {
 
 function labelsFrom(data) {
   data = data || []
+  console.log('-- data.length', data.length)
   return data.map((a, index) => {
-    console.log('-- ', parseInt(data.length*0.33,0))
-    if(index % parseInt((1+data.length)*0.33, 0)==0 || index == data.length-1){
+    if(index % parseInt((data.length)*0.33, 0)==0 || index == data.length-1){
+      console.log('-- legend', index, a)
       return formatTime(new Date(a.id))
     }
     return ""
