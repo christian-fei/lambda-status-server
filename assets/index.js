@@ -54,7 +54,7 @@ function setCounter(type, data) {
       counter.show()
       const date = data.reduce((acc, val)=>acc<val.id?acc:new Date(val.id), new Date(data[0].id))
       counter.empty()
-      counter.append('From: ' + formatDate(date))
+      counter.append('From: <span class="light">' + formatDate(date) +'</span>')
     }
   }
   if('to'==type) {
@@ -64,7 +64,7 @@ function setCounter(type, data) {
       counter.show()
       const date = data.reduce((acc, val)=>acc>val.id?acc:new Date(val.id), null)
       counter.empty()
-      counter.append('To: ' + formatDate(date))
+      counter.append('To: <span class="light">' + formatDate(date) +'</span>')
     }
   }
   if('exception-rate'==type) {
