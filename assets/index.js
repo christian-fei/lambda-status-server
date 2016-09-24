@@ -41,56 +41,84 @@ function setCounter(type, data) {
       counter.hide()
     } else {
       counter.show()
+      const date = data.reduce((acc, val)=>acc<val.id?acc:new Date(val.id), new Date(data[0].id))
+      counter.empty()
+      counter.append(counterFrom('from', formatDate(date)))
     }
-    const date = data.reduce((acc, val)=>acc<val.id?acc:new Date(val.id), new Date(data[0].id))
-    console.log('-- date', date)
-    counter.empty()
-    counter.append($('<div><p class="label">from</p><p class="value">'+ formatDate(date)+'</p></div>'))
   }
   if('to'==type) {
     if(data.length===0){
       counter.hide()
     } else {
       counter.show()
+      const date = data.reduce((acc, val)=>acc>val.id?acc:new Date(val.id), null)
+      counter.empty()
+      counter.append(counterFrom('to', formatDate(date)))
     }
-    const date = data.reduce((acc, val)=>acc>val.id?acc:new Date(val.id), null)
-    counter.empty()
-    counter.append($('<div><p class="label">to</p><p class="value">'+ formatDate(date)+'</p></div>'))
   }
   if('exception-rate'==type) {
-    const exceptionCount = data.reduce((acc, val)=>val.statusCode>=400 ? acc+1 : acc, 0)
-    const exceptionRate = (exceptionCount/data.length).toFixed(5)
-    counter.empty()
-    counter.append($('<div><p class="label">exception-rate</p><p class="value">'+ exceptionRate+'%</p></div>'))
+    if(data.length===0){
+      counter.hide()
+    } else {
+      counter.show()
+      const exceptionCount = data.reduce((acc, val)=>val.statusCode>=400 ? acc+1 : acc, 0)
+      const exceptionRate = (exceptionCount/data.length).toFixed(5)
+      counter.empty()
+      counter.append(counterFrom('exception-rate', exceptionRate))
+    }
   }
   if('avg-loading-time'==type) {
-    let avg = _.meanBy(data, 'loadingTime')
-    avg = avg.toFixed(1)
-    counter.empty()
-    counter.append($('<div><p class="label">avg loading time</p><p class="value">'+ avg+'ms</p></div>'))
+    if(data.length===0){
+      counter.hide()
+    } else {
+      counter.show()
+      let avg = _.meanBy(data, 'loadingTime')
+      avg = avg.toFixed(1)
+      counter.empty()
+      counter.append(counterFrom('avg loading time', avg))
+    }
   }
   if('max-loading-time'==type) {
-    let max = _.maxBy(data, 'loadingTime').loadingTime
-    max = max.toFixed(1)
-    counter.empty()
-    counter.append($('<div><p class="label">max loading time</p><p class="value">'+ max+'ms</p></div>'))
+    if(data.length===0){
+      counter.hide()
+    } else {
+      counter.show()
+      let max = _.maxBy(data, 'loadingTime').loadingTime
+      max = max.toFixed(1)
+      counter.empty()
+      counter.append(counterFrom('max loading time', max))
+    }
   }
   if('min-loading-time'==type) {
-    let min = _.minBy(data, 'loadingTime').loadingTime
-    min = min.toFixed(1)
-    counter.empty()
-    counter.append($('<div><p class="label">min loading time</p><p class="value">'+ min+'ms</p></div>'))
+    if(data.length===0){
+      counter.hide()
+    } else {
+      counter.show()
+      let min = _.minBy(data, 'loadingTime').loadingTime
+      min = min.toFixed(1)
+      counter.empty()
+      counter.append(counterFrom('min loading time', min))
+    }
   }
   if('count-by-status-code'==type) {
-    const countByStatusCode = _.countBy(data,'statusCode')
-    let output = ""
-    for(let key in countByStatusCode) {
-      const value = countByStatusCode[key]
-      output+='<strong>'+key+'</strong>:  '+value+'</br>'
+    if(data.length===0){
+      counter.hide()
+    } else {
+      counter.show()
+      const countByStatusCode = _.countBy(data,'statusCode')
+      let output = ""
+      for(let key in countByStatusCode) {
+        const value = countByStatusCode[key]
+        output+='<strong>'+key+'</strong>:  '+value+'</br>'
+      }
+      counter.empty()
+      counter.append(counterFrom('Count by `statusCode`', output))
     }
-    counter.empty()
-    counter.append($('<div><p class="label">Count by `statusCode`</p><p class="value">'+output+'</p></div>'))
   }
+}
+
+function counterFrom(label, value) {
+  return $('<div><p class="label">'+label+'</p><p class="value">'+value+'</p></div>')
 }
 
 function drawResponseTimeChartWith(data) {
@@ -121,10 +149,8 @@ function drawResponseTimeChartWith(data) {
 
 function labelsFrom(data) {
   data = data || []
-  console.log('-- data.length', data.length)
   return data.map((a, index) => {
     if(index % parseInt((data.length)*0.33, 0)==0 || index == data.length-1){
-      console.log('-- legend', index, a)
       return formatTime(new Date(a.id))
     }
     return ""
