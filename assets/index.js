@@ -31,7 +31,7 @@ function setCounter(type, data) {
   const counter = $('#'+type)
   if('datasets'==type) {
     counter.empty()
-    counter.append($('<div><h1># datasets</h1><br><h1 class="giant">'+data.length+'</h1></div>'))
+    counter.append($('<div><p class="label"># datasets</p><p class="value">'+data.length+'</p></div>'))
   }
   if('from'==type) {
     if(data.length===0){
@@ -42,7 +42,7 @@ function setCounter(type, data) {
     const date = data.reduce((acc, val)=>acc<val.id?acc:new Date(val.id), new Date(data[0].id))
     console.log('-- date', date)
     counter.empty()
-    counter.append($('<div><h1>from</h1><br><h2>'+ formatDate(date)+'</h2></div>'))
+    counter.append($('<div><p class="label">from</p><p class="value">'+ formatDate(date)+'</p></div>'))
   }
   if('to'==type) {
     if(data.length===0){
@@ -52,19 +52,19 @@ function setCounter(type, data) {
     }
     const date = data.reduce((acc, val)=>acc>val.id?acc:new Date(val.id), null)
     counter.empty()
-    counter.append($('<div><h1>to</h1><br><h2>'+ formatDate(date)+'</h2></div>'))
+    counter.append($('<div><p class="label">to</p><p class="value">'+ formatDate(date)+'</p></div>'))
   }
   if('exception-rate'==type) {
     const exceptionCount = data.reduce((acc, val)=>val.statusCode>=400 ? acc+1 : acc, 0)
     const exceptionRate = (exceptionCount/data.length).toFixed(5)
     counter.empty()
-    counter.append($('<div><h1>exception-rate</h1><br><h2>'+ exceptionRate+'%</h2></div>'))
+    counter.append($('<div><p class="label">exception-rate</p><p class="value">'+ exceptionRate+'%</p></div>'))
   }
   if('avg-loading-time'==type) {
     let avg = data.reduce((acc, val)=>acc+val.loadingTime, 0)/data.length
     avg = avg.toFixed(1)
     counter.empty()
-    counter.append($('<div><h1>avg loading time</h1><br><h2>'+ avg+'ms</h2></div>'))
+    counter.append($('<div><p class="label">avg loading time</p><p class="value">'+ avg+'ms</p></div>'))
   }
 }
 
