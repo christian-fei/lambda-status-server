@@ -10,6 +10,10 @@ if('/past/week'==path){dataFrom = '1wago'}
 
 requestDataFrom(dataFrom)
 
+setTimeout(() => {
+  window.location = window.location
+}, 1000*60)
+
 function requestDataFrom(from) {
   $.get('/statuses?from='+from, function(err, status, response){
     currentData = response.responseJSON.sort((a,b)=>a.id>b.id)
