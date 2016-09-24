@@ -1,3 +1,6 @@
+a, .link {
+  cursor: pointer;
+}
 .loading-page-container {
 }
 .loading-page-container #loading-page {
@@ -22,13 +25,20 @@
 }
 .counter {
   display: block;
-  border-bottom: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  width: 48%;
+  float: left;
+  margin: 0;
+  border-bottom: 1px solid #666;
+  border-right: 1px solid #666;
   color: #333;
-  background-color: #fff;
   text-align: left;
   font-size: 0.75em;
   padding: 1em;
+}
+@media all and (max-width: 1200px) {
+  .counter {
+    width: 100%;
+  }
 }
 .counter .label {
 }

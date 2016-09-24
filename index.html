@@ -11,13 +11,22 @@
     <link rel="stylesheet" href="/assets/index.css">
   </head>
   <body class="loading-page-container loading-page-active">
+    <script>
+      if (/theme=dark/.test(window.location.search)) {
+        var element=document.createElement("link")
+        element.setAttribute("rel", "stylesheet")
+        element.setAttribute("type", "text/css")
+        element.setAttribute("href", '/assets/theme.dark.css')
+        document.getElementsByTagName("head")[0].appendChild(element)
+      }
+    </script>
     <div id="loading-page">
       <h1>Loading...</h1>
     </div>
     <div>
-      <a href="/past/hour">Past hour</a>
-      <a href="/past/day">Past day</a>
-      <a href="/past/week">Past week</a>
+      <span class="link" href="/past/hour" onclick="window.location='/past/hour'+window.location.search">Past hour</span>
+      <span class="link" href="/past/day" onclick="window.location='/past/day'+window.location.search">Past day</span>
+      <span class="link" href="/past/week" onclick="window.location='/past/week'+window.location.search">Past week</span>
       <canvas id="loading-time-chart" width="300" height="60"></canvas>
       <div class="counter-container">
         <div class="counter" id="datasets"></div>

@@ -29,6 +29,13 @@ server.route({
 })
 server.route({
   method: 'GET',
+  path:'/assets/theme.dark.css',
+  handler: function (request, reply) {
+    return reply.file('./assets/theme.dark.css');
+  }
+})
+server.route({
+  method: 'GET',
   path:'/statuses',
   handler: function (request, reply) {
     const from = parseFrom(request.url.query.from)
