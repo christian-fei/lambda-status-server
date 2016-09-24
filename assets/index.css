@@ -1,5 +1,10 @@
+body {
+  font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue",  'Arial Narrow', Arial, sans-serif;
+  font-size: 1em;
+}
 a, .link {
   cursor: pointer;
+  text-decoration: underline;
 }
 .loading-page-container {
 }
