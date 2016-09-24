@@ -64,19 +64,19 @@ function setCounter(type, data) {
     counter.append($('<div><p class="label">exception-rate</p><p class="value">'+ exceptionRate+'%</p></div>'))
   }
   if('avg-loading-time'==type) {
-    let avg = data.reduce((acc, val)=>acc+val.loadingTime, 0)/data.length
+    let avg = _.meanBy(data, 'loadingTime')
     avg = avg.toFixed(1)
     counter.empty()
     counter.append($('<div><p class="label">avg loading time</p><p class="value">'+ avg+'ms</p></div>'))
   }
   if('max-loading-time'==type) {
-    let max = data.reduce((acc, val)=>acc>val.loadingTime ? acc : val.loadingTime, 0)
+    let max = _.maxBy(data, 'loadingTime').loadingTime
     max = max.toFixed(1)
     counter.empty()
     counter.append($('<div><p class="label">max loading time</p><p class="value">'+ max+'ms</p></div>'))
   }
   if('min-loading-time'==type) {
-    let min = data.reduce((acc, val)=>acc<val.loadingTime ? acc : val.loadingTime, 0)
+    let min = _.minBy(data, 'loadingTime').loadingTime
     min = min.toFixed(1)
     counter.empty()
     counter.append($('<div><p class="label">min loading time</p><p class="value">'+ min+'ms</p></div>'))
