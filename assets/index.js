@@ -18,6 +18,7 @@ function requestDataFrom(from) {
   $.get('/statuses?from='+from, function(err, status, response){
     currentData = response.responseJSON.sort((a,b)=>a.id-b.id)
     drawResponseTimeChartWith(currentData)
+    setInfo('last-response', currentData)
     setCounter('datasets', currentData)
     setCounter('from', currentData)
     setCounter('to', currentData)
@@ -28,6 +29,16 @@ function requestDataFrom(from) {
     setCounter('count-by-status-code', currentData)
     $loadingPageContainer.removeClass('loading-page-active')
   })
+}
+
+function setInfo(type, data) {
+  const info = $('#'+type)
+  if('last-response'==type) {
+    info.empty()
+    const lastResponse = data[data.length-1]
+    const lastStatusClass = lastResponse.statusCode < 400 ? 'ok' : 'danger'
+    info.append($('<p class="cell '+ lastStatusClass +'">Last status: <span class="value">'+lastResponse.statusCode+' ('+lastResponse.loadingTime+'ms)</span></p>'))
+  }
 }
 
 function setCounter(type, data) {
@@ -43,7 +54,7 @@ function setCounter(type, data) {
       counter.show()
       const date = data.reduce((acc, val)=>acc<val.id?acc:new Date(val.id), new Date(data[0].id))
       counter.empty()
-      counter.append(counterFrom('from', formatDate(date)))
+      counter.append('From: ' + formatDate(date))
     }
   }
   if('to'==type) {
@@ -53,7 +64,7 @@ function setCounter(type, data) {
       counter.show()
       const date = data.reduce((acc, val)=>acc>val.id?acc:new Date(val.id), null)
       counter.empty()
-      counter.append(counterFrom('to', formatDate(date)))
+      counter.append('To: ' + formatDate(date))
     }
   }
   if('exception-rate'==type) {
@@ -73,7 +84,7 @@ function setCounter(type, data) {
     } else {
       counter.show()
       let avg = _.meanBy(data, 'loadingTime')
-      avg = avg.toFixed(1)
+      avg = parseInt(avg, 10)
       counter.empty()
       counter.append(counterFrom('avg loading time', avg+'ms'))
     }
@@ -84,7 +95,7 @@ function setCounter(type, data) {
     } else {
       counter.show()
       let max = _.maxBy(data, 'loadingTime').loadingTime
-      max = max.toFixed(1)
+      max = parseInt(max, 10)
       counter.empty()
       counter.append(counterFrom('max loading time', max+'ms'))
     }
@@ -95,7 +106,7 @@ function setCounter(type, data) {
     } else {
       counter.show()
       let min = _.minBy(data, 'loadingTime').loadingTime
-      min = min.toFixed(1)
+      min = parseInt(min, 10)
       counter.empty()
       counter.append(counterFrom('min loading time', min+'ms'))
     }
@@ -179,5 +190,5 @@ function formatDate(date) {
     return ''
   }
   const isoString = date.toISOString()
-  return isoString.substring(0,"2016-09-24".length) + '<br />' + isoString.substring("2016-09-24T".length, "2016-09-24T".length+8)
+  return isoString.substring(0,"2016-09-24".length)+ ' ' + isoString.substring("2016-09-24T".length, "2016-09-24T".length+8)
 }

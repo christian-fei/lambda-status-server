@@ -1,6 +1,6 @@
 body {
   font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue",  'Arial Narrow', Arial, sans-serif;
-  font-size: 1em;
+  font-size: 16px;
 }
 a, .link {
   cursor: pointer;
@@ -21,42 +21,47 @@ a, .link {
   bottom: 0;
   left: 0;
   z-index: 9999;
+  padding: 0.25em;
 }
 
 
-.counter-container {
+.container {
   display: block;
   overflow: hidden;
   margin: 0 auto;
   max-width: 600px;
 }
-.counter {
+.counter, .info {
   display: block;
   width: calc(50% - 2em);
   float: left;
   margin: 0;
   color: #333;
   text-align: left;
-  font-size: 0.75em;
-  padding: 1em;
-  margin-left: -1px;
 }
 @media all and (max-width: 1200px) {
-  .counter {
+  .counter, .info {
     width: 100%;
   }
-}
-.counter.small {
-  font-size: 0.5em;
-}
-.counter .label {
-  padding-right: 1em;
 }
 .counter .value {
   text-align: center;
   font-weight: bold;
-  font-size: 4em;
   margin: 0.05em auto;
+  font-size: 3em;
+}
+
+.info {
+  margin: 0 !important;
+  width: 100%;
+  background-color: rgba(0,0,0,0.02);
+}
+
+.info .ok .value {
+  color: green;
+}
+.info .danger .value {
+  color: red;
 }
 
 .tac {

@@ -29,12 +29,15 @@
         <span class="link" href="/past/day" onclick="window.location='/past/day'+window.location.search">Past day</span>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
         <span class="link" href="/past/week" onclick="window.location='/past/week'+window.location.search">Past week</span>
       </div>
-      <div class="counter-container">
-        <div class="counter" id="from"></div>
-        <div class="counter" id="to"></div>
+      <div class="container">
+        <div class="info half" id="from"></div>
+        <div class="info half" id="to"></div>
       </div>
       <canvas id="loading-time-chart" width="300" height="35"></canvas>
-      <div class="counter-container">
+      <div class="container">
+        <div class="info" id="last-response"></div>
+      </div>
+      <div class="container">
         <div class="counter" id="datasets"></div>
         <div class="counter" id="avg-loading-time"></div>
         <div class="counter" id="max-loading-time"></div>
