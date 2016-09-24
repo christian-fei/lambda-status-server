@@ -34,7 +34,7 @@ function setCounter(type, data) {
   const counter = $('#'+type)
   if('datasets'==type) {
     counter.empty()
-    counter.append($('<div><p class="label"># datasets</p><p class="value">'+data.length+'</p></div>'))
+    counter.append(counterFrom('# datasets', data.length))
   }
   if('from'==type) {
     if(data.length===0){
@@ -64,7 +64,7 @@ function setCounter(type, data) {
       const exceptionCount = data.reduce((acc, val)=>val.statusCode>=400 ? acc+1 : acc, 0)
       const exceptionRate = (exceptionCount/data.length).toFixed(5)
       counter.empty()
-      counter.append(counterFrom('exception-rate', exceptionRate))
+      counter.append(counterFrom('exception-rate', exceptionRate+'%'))
     }
   }
   if('avg-loading-time'==type) {
@@ -75,7 +75,7 @@ function setCounter(type, data) {
       let avg = _.meanBy(data, 'loadingTime')
       avg = avg.toFixed(1)
       counter.empty()
-      counter.append(counterFrom('avg loading time', avg))
+      counter.append(counterFrom('avg loading time', avg+'ms'))
     }
   }
   if('max-loading-time'==type) {
@@ -86,7 +86,7 @@ function setCounter(type, data) {
       let max = _.maxBy(data, 'loadingTime').loadingTime
       max = max.toFixed(1)
       counter.empty()
-      counter.append(counterFrom('max loading time', max))
+      counter.append(counterFrom('max loading time', max+'ms'))
     }
   }
   if('min-loading-time'==type) {
@@ -97,7 +97,7 @@ function setCounter(type, data) {
       let min = _.minBy(data, 'loadingTime').loadingTime
       min = min.toFixed(1)
       counter.empty()
-      counter.append(counterFrom('min loading time', min))
+      counter.append(counterFrom('min loading time', min+'ms'))
     }
   }
   if('count-by-status-code'==type) {
