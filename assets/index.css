@@ -27,21 +27,19 @@ a, .link {
 .counter-container {
   display: block;
   overflow: hidden;
+  margin: 0 auto;
+  max-width: 600px;
 }
 .counter {
   display: block;
   width: calc(50% - 2em);
   float: left;
   margin: 0;
-  /*border-bottom: 1px solid #666;*/
   color: #333;
   text-align: left;
   font-size: 0.75em;
   padding: 1em;
   margin-left: -1px;
-}
-.counter:nth-child(2n+1) {
-  /*border-right: 1px solid #666;*/
 }
 @media all and (max-width: 1200px) {
   .counter {
@@ -51,15 +49,13 @@ a, .link {
 .counter.small {
   font-size: 0.5em;
 }
-.counter.small .label, .counter.small .value {
-  float: left;
-}
 .counter .label {
   padding-right: 1em;
 }
 .counter .value {
+  text-align: center;
   font-weight: bold;
-  font-size: 4.5em;
+  font-size: 4em;
   margin: 0.05em auto;
 }
 

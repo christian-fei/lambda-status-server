@@ -177,5 +177,6 @@ function formatDate(date) {
   if(!date) {
     return ''
   }
-  return date.toISOString()
+  const isoString = date.toISOString()
+  return isoString.substring(0,"2016-09-24".length) + '<br />' + isoString.substring("2016-09-24T".length, "2016-09-24T".length+8)
 }
