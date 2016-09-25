@@ -6,6 +6,7 @@ body {
 }
 a, .link {
   cursor: pointer;
+  color: #333;
   text-decoration: underline;
 }
 .loading-page-container {
