@@ -1,9 +1,9 @@
-const $loadingPageContainer = $('.loading-page-container')
-let currentChart = null
-let currentData = null
+var $loadingPageContainer = $('.loading-page-container')
+var currentChart = null
+var currentData = null
 
-let dataFrom = '1hago'
-const path = window.location.pathname
+var dataFrom = '1hago'
+var path = window.location.pathname
 if('/past/hour'==path){dataFrom = '1hago'}
 if('/past/day'==path){dataFrom = '1dago'}
 if('/past/week'==path){dataFrom = '1wago'}
@@ -35,10 +35,10 @@ function requestDataFrom(from) {
 }
 
 function render(type, data) {
-  const counter = $('#'+type)
+  var counter = $('#'+type)
   if('last-response'==type) {
     counter.empty()
-    const lastResponse = data[data.length-1]
+    var lastResponse = data[data.length-1]
     counter.append($('<p>Last status: '+renderStatusFrom(lastResponse)+'</p>'))
   }
   if('datasets'==type) {
@@ -50,7 +50,7 @@ function render(type, data) {
       counter.hide()
     } else {
       counter.show()
-      const date = data.reduce((acc, val)=>acc<val.id?acc:new Date(val.id), new Date(data[0].id))
+      var date = data.reduce((acc, val)=>acc<val.id?acc:new Date(val.id), new Date(data[0].id))
       counter.empty()
       counter.append('From: <span class="light">' + formatDate(date) +'</span>')
     }
@@ -60,7 +60,7 @@ function render(type, data) {
       counter.hide()
     } else {
       counter.show()
-      const date = data.reduce((acc, val)=>acc>val.id?acc:new Date(val.id), null)
+      var date = data.reduce((acc, val)=>acc>val.id?acc:new Date(val.id), null)
       counter.empty()
       counter.append('To: <span class="light">' + formatDate(date) +'</span>')
     }
@@ -70,8 +70,8 @@ function render(type, data) {
       counter.hide()
     } else {
       counter.show()
-      const exceptionCount = data.reduce((acc, val)=>val.statusCode>=400 ? acc+1 : acc, 0)
-      const exceptionRate = (exceptionCount/data.length).toFixed(5)
+      var exceptionCount = data.reduce((acc, val)=>val.statusCode>=400 ? acc+1 : acc, 0)
+      var exceptionRate = (exceptionCount/data.length).toFixed(5)
       counter.empty()
       counter.append(counterFrom('exception-rate', exceptionRate+'%'))
     }
@@ -81,7 +81,7 @@ function render(type, data) {
       counter.hide()
     } else {
       counter.show()
-      let avg = _.meanBy(data, 'loadingTime')
+      var avg = _.meanBy(data, 'loadingTime')
       avg = parseInt(avg, 10)
       counter.empty()
       counter.append(counterFrom('avg loading time', avg+'ms'))
@@ -92,7 +92,7 @@ function render(type, data) {
       counter.hide()
     } else {
       counter.show()
-      let max = _.maxBy(data, 'loadingTime').loadingTime
+      var max = _.maxBy(data, 'loadingTime').loadingTime
       max = parseInt(max, 10)
       counter.empty()
       counter.append(counterFrom('max loading time', max+'ms'))
@@ -103,7 +103,7 @@ function render(type, data) {
       counter.hide()
     } else {
       counter.show()
-      let min = _.minBy(data, 'loadingTime').loadingTime
+      var min = _.minBy(data, 'loadingTime').loadingTime
       min = parseInt(min, 10)
       counter.empty()
       counter.append(counterFrom('min loading time', min+'ms'))
@@ -114,10 +114,10 @@ function render(type, data) {
       counter.hide()
     } else {
       counter.show()
-      const countByStatusCode = _.countBy(data,'statusCode')
-      let output = ""
-      for(let key in countByStatusCode) {
-        const value = countByStatusCode[key]
+      var countByStatusCode = _.countBy(data,'statusCode')
+      var output = ""
+      for(var key in countByStatusCode) {
+        var value = countByStatusCode[key]
         output+='<strong>'+key+'</strong>:  '+value+'</br>'
       }
       counter.empty()
@@ -139,11 +139,11 @@ function render(type, data) {
 }
 
 function renderStatusFrom(data) {
-  const className = data.statusCode<400 ? 'green' : 'red'
+  var className = data.statusCode<400 ? 'green' : 'red'
   return '<span class="'+className+'">'+data.statusCode+' ('+data.loadingTime+')</span>'
 }
 function renderStatusWithTimestampFrom(data) {
-  const className = data.statusCode<400 ? 'green' : 'red'
+  var className = data.statusCode<400 ? 'green' : 'red'
   return new Date(data.id).toUTCString() + '&nbsp;&nbsp; ' + renderStatusFrom(data)
 }
 
@@ -158,7 +158,7 @@ function drawResponseTimeChartWith(data) {
     debugger
     currentChart.destroy()
   }
-  const context = document.getElementById("loading-time-chart").getContext('2d');
+  var context = document.getElementById("loading-time-chart").getContext('2d');
   currentChart = new Chart(context, {
     type: 'line',
     data: {
@@ -209,6 +209,6 @@ function formatDate(date) {
     return ''
   }
   return date.toUTCString()
-  const isoString = date.toISOString()
+  var isoString = date.toISOString()
   return isoString.substring(0,"2016-09-24".length)+ ' ' + isoString.substring("2016-09-24T".length, "2016-09-24T".length+8)
 }
