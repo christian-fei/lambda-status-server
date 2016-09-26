@@ -43,21 +43,14 @@ a, .link {
   margin: 0.05em auto;
   font-size: 3em;
 }
-.item .value.small {
-  font-size: 1em;
-}
-
-.item .ok .value {
-  color: green;
-}
-.item .danger .value {
-  color: red;
-}
 
 .tac {
   text-align: center;
 }
 
-.light {
-  /*color: #848484;*/
+#history {
+  padding-left: 0;
+}
+#history li {
+  list-style-type: none;
 }

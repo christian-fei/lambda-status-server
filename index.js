@@ -1,9 +1,13 @@
 'use strict'
 
+const HOUR = 1000*60*60
+const DAY = HOUR*24
+const WEEK = DAY*7
+
 const Hapi = require('hapi')
 const StatusRepository = require('./lib/StatusRepository')
-
 const server = new Hapi.Server()
+
 server.connection({
   host: '0.0.0.0',
   port: process.env.PORT || 3000
@@ -75,19 +79,16 @@ function parseFrom(from) {
   if(!from) {
     return
   }
-  const hours = 1000*60*60
-  const days = hours*24
-  const weeks = days*7
   if(/\d+hago/.test(from)) {
     const hoursAgo = from.match(/(\d)+hago/)[1]
-    return Date.now()-hours*hoursAgo
+    return Date.now()-HOUR*hoursAgo
   }
   if(/\d+dago/.test(from)) {
     const daysAgo = from.match(/(\d)+dago/)[1]
-    return Date.now()-days*daysAgo
+    return Date.now()-DAY*daysAgo
   }
   if(/\d+wago/.test(from)) {
     const weeksAgo = from.match(/(\d)+wago/)[1]
-    return Date.now()-weeks*weeksAgo
+    return Date.now()-WEEK*weeksAgo
   }
 }

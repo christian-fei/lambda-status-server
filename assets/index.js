@@ -17,27 +17,29 @@ setTimeout(() => {
 function requestDataFrom(from) {
   $.get('/statuses?from='+from, function(err, status, response){
     currentData = response.responseJSON.sort((a,b)=>a.id-b.id)
-    drawResponseTimeChartWith(currentData)
-    setCounter('last-response', currentData)
-    setCounter('datasets', currentData)
-    setCounter('from', currentData)
-    setCounter('to', currentData)
-    setCounter('exception-rate', currentData)
-    setCounter('avg-loading-time', currentData)
-    setCounter('max-loading-time', currentData)
-    setCounter('min-loading-time', currentData)
-    setCounter('count-by-status-code', currentData)
+    if('1hago'==dataFrom) {
+      drawResponseTimeChartWith(currentData)
+    }
+    render('last-response', currentData)
+    render('datasets', currentData)
+    render('from', currentData)
+    render('to', currentData)
+    render('exception-rate', currentData)
+    render('avg-loading-time', currentData)
+    render('max-loading-time', currentData)
+    render('min-loading-time', currentData)
+    render('count-by-status-code', currentData)
+    render('history', currentData)
     $loadingPageContainer.removeClass('loading-page-active')
   })
 }
 
-function setCounter(type, data) {
+function render(type, data) {
   const counter = $('#'+type)
   if('last-response'==type) {
     counter.empty()
     const lastResponse = data[data.length-1]
-    const lastStatusClass = lastResponse.statusCode < 400 ? 'ok' : 'danger'
-    counter.append($('<p class="cell '+ lastStatusClass +'">Last status: <span class="value small">'+lastResponse.statusCode+' ('+lastResponse.loadingTime+'ms)</span></p>'))
+    counter.append($('<p>Last status: '+renderStatusFrom(lastResponse)+'</p>'))
   }
   if('datasets'==type) {
     counter.empty()
@@ -122,6 +124,27 @@ function setCounter(type, data) {
       counter.append(counterFrom('Count by `statusCode`', output))
     }
   }
+  if('history'==type) {
+    if(data.length===0){
+      counter.hide()
+    } else {
+      counter.show()
+      output = _.map(data, (d) => {
+        return '<li class="pv2">'+ renderStatusWithTimestampFrom(d) +'</li>'
+      }).join('')
+      counter.empty()
+      counter.append(output)
+    }
+  }
+}
+
+function renderStatusFrom(data) {
+  const className = data.statusCode<400 ? 'green' : 'red'
+  return '<span class="'+className+'">'+data.statusCode+' ('+data.loadingTime+')</span>'
+}
+function renderStatusWithTimestampFrom(data) {
+  const className = data.statusCode<400 ? 'green' : 'red'
+  return new Date(data.id).toUTCString() + '&nbsp;&nbsp; ' + renderStatusFrom(data)
 }
 
 function counterFrom(label, value) {
