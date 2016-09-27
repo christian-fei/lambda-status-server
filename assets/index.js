@@ -37,9 +37,13 @@ function requestDataFrom(from) {
 function render(type, data) {
   var counter = $('#'+type)
   if('last-response'==type) {
-    counter.empty()
-    var lastResponse = data[data.length-1]
-    counter.append($('<p>Last status: '+renderStatusFrom(lastResponse)+'</p>'))
+    if(data.length===0){
+      counter.hide()
+    } else {
+      counter.empty()
+      var lastResponse = data[data.length-1]
+      counter.append($('<p>Last status: '+renderStatusFrom(lastResponse)+'</p>'))
+    }
   }
   if('datasets'==type) {
     counter.empty()
